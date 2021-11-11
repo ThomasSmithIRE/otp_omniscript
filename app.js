@@ -1,37 +1,77 @@
 "use strict";
+const express = require('express');
 const nodemailer = require("nodemailer");
+const app = express();
+const exphbs = require('express-handlebars');
 
-// async..await is not allowed in global scope, must use a wrapper
-async function main() {
-  // Generate test SMTP service account from ethereal.email
-  // Only needed if you don't have a real mail account for testing
-  let testAccount = await nodemailer.createTestAccount();
+//View Engine
+app.engine('handlebars', exphbs({ extname: "hbs", defaultLayout: false, layoutsDir: "views/ " }));
+app.set('view engine', 'handlebars');
 
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
+// create reusable transporter object using the default SMTP transport
+let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
     secure: true,
     service : 'Gmail',
-    
+
     auth: {
-      user: 'otptesting82@gmail.com',
-      pass: '3Bnt6rdYZ4qI',
+        user: 'otptesting82@gmail.com',
+        pass: '3Bnt6rdYZ4qI',
     }
-  });
+});
+var email;
 
-  // send mail with defined transport object
-  let info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <otptesting82@gmail.com>', // sender address
+var otp = Math.random();
+otp = otp * 1000000;
+otp = parseInt(otp);
+
+/*
+let info = await transporter.sendMail({
+    from: '"Spooky SF 👻" <otptesting82@gmail.com>', // sender address
     to: "engineertsmith@gmail.com", // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
-  });
+    subject: "OTP Verification",
+    html: "<h3>OTP for verification is </h3>" + "<h1 style='font-weight:bold;'>" + otp + "</h1>"
+});
 
-  console.log("Message sent: %s", info.messageId);
+console.log("Message sent: %s", info.messageId);*/
 
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-}
+app.get('/', function (req, res) {
+    res.render('contact');
+});
 
-main().catch(console.error);
+app.post('/send', function (req, res) {
+    //email = req.body.email;
+
+    var mailOptions = {
+        from: '"Spooky SF 👻" <otptesting82@gmail.com>',
+        to: "engineertsmith@gmail.com", //to: req.body.email,
+        subject: "OTP Verification",
+        html: "<h3>OTP for verification is </h3>" + "<h1 style='font-weight:bold;'>" + otp + "</h1>"
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);
+
+        res.render('otp');
+    });
+});
+
+app.post('/verify', function (req, res) {
+    res.send("You has been successfully registered");
+    /*if (req.body.otp == otp) {
+        res.send("You has been successfully registered");
+    }
+    else {
+        res.render('otp', { msg: 'otp is incorrect' });
+    }*/
+});
+
+//defining port
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`app is live at ${PORT}`);
+})
