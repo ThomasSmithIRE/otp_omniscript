@@ -52,10 +52,8 @@ app.post('/send', function (req, res) {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             res.send("Error: " + error);
-            res.sendStatus(406);
         }
         res.send("SUCCESS");
-        res.sendStatus(200);
     });
 });
 
@@ -69,8 +67,10 @@ app.post('/verify', function (req, res) {
 
     if (bodyAsObject.otp == otp) {
         res.send("Verification Complete");
+        res.sendStatus(200);
     } else {
         res.send("OTP is incorrect.");
+        res.sendStatus(406);
     }
 });
 
