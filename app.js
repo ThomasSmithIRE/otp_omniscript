@@ -41,6 +41,26 @@ app.get('/', function (req, res) {
 });
 
 app.post('/send', function (req, res) {
+    email = req.body.email;
+
+    var mailOptions = {
+        from: '"Spooky SF 👻" <otptesting82@gmail.com>',
+        to: email,
+        subject: "OTP Verification",
+        html: "<h3>OTP for verification is </h3>" + "<h1 style='font-weight:bold;'>" + otp + "</h1>"
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);
+
+        res.render('otp');
+    });
+});
+
+app.post('/defaultSend', function (req, res) {
     //email = req.body.email;
 
     var mailOptions = {
