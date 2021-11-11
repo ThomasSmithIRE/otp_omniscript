@@ -35,12 +35,12 @@ app.get('/', function (req, res) {
 app.post('/send', function (req, res) {
     console.log('Req1: ' + JSON.stringify(req.body));
 
-    var body = JSON.stringify(req.body);
-    body = body.replace('":""}', '');
-    body = body.replace('{"', '');
-    console.log('Body: ' + body);
+    var bodyAsString = JSON.stringify(req.body).replace('":""}', '').replace('{"', '');
+    console.log('Body: ' + bodyAsString);
 
-    email = body.email;
+    const bodyAsObject = JSON.parse(bodyAsString);
+
+    email = bodyAsObject.email;
     console.log('Email: ' + JSON.stringify(email));
 
     /*var mailOptions = {
