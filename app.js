@@ -47,8 +47,10 @@ app.post('/send', function (req, res) {
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
+            res.send("Error: " + error);
             return console.log(error);
         }
+        res.send("SUCCESS")
         //console.log('Message sent: %s', info.messageId);
 
         //res.render('otp');
