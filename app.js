@@ -23,15 +23,19 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-var otp = Math.random();
-otp = otp * 1000000;
-otp = parseInt(otp);
+var otp;
 
 app.get('/', function (req, res) {
     res.render('contact');
 });
 
 app.post('/send', function (req, res) {
+    // Does not support parallel calls
+    // TODO - database
+    otp = Math.random();
+    otp = otp * 1000000;
+    otp = parseInt(otp);
+
     // VIP HTTP request requires tidying up.
     var bodyAsString = JSON.stringify(req.body).replace('":""}', '').replace('{"', '').replace(/\\/g, '');
     const bodyAsObject = JSON.parse(bodyAsString);
@@ -48,9 +52,10 @@ app.post('/send', function (req, res) {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             res.send("Error: " + error);
-            return console.log(error);
+            res.sendStatus(406);
         }
         res.send("SUCCESS");
+        res.sendStatus(200);
     });
 });
 
