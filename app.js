@@ -39,7 +39,7 @@ app.post('/send', function (req, res) {
     var email = bodyAsObject.email;
 
     var mailOptions = {
-        from: '"Spooky SF 👻" <otptesting82@gmail.com>',
+        from: '"OTP Verifier" <otptesting82@gmail.com>',
         to: email,
         subject: "OTP Verification",
         html: "<h3>OTP for verification is </h3>" + "<h1 style='font-weight:bold;'>" + otp + "</h1>"
@@ -50,32 +50,12 @@ app.post('/send', function (req, res) {
             res.send("Error: " + error);
             return console.log(error);
         }
-        res.send("SUCCESS")
-        //console.log('Message sent: %s', info.messageId);
-
-        //res.render('otp');
-    });
-});
-
-app.post('/defaultSend', function (req, res) {
-    var mailOptions = {
-        from: '"Spooky SF 👻" <otptesting82@gmail.com>',
-        to: "engineertsmith@gmail.com", //to: req.body.email,
-        subject: "OTP Verification",
-        html: "<h3>OTP for verification is </h3>" + "<h1 style='font-weight:bold;'>" + otp + "</h1>"
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Message sent: %s', info.messageId);
-
-        res.render('otp');
+        res.send("SUCCESS");
     });
 });
 
 app.post('/verify', function (req, res) {
+    console.log('Verification Req: ' + JSON.stringify(req));
     res.send("Verification Complete.");
     /*if (req.body.otp == otp) {
         res.send("Verification Complete");
