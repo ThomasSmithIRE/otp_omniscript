@@ -22,7 +22,6 @@ let transporter = nodemailer.createTransport({
         pass: '3Bnt6rdYZ4qI',
     }
 });
-var email;
 
 var otp = Math.random();
 otp = otp * 1000000;
@@ -33,17 +32,13 @@ app.get('/', function (req, res) {
 });
 
 app.post('/send', function (req, res) {
-    console.log('Req1: ' + JSON.stringify(req.body));
-
+    // VIP HTTP request requires tidying up.
     var bodyAsString = JSON.stringify(req.body).replace('":""}', '').replace('{"', '').replace(/\\/g, '');
-    console.log('Body: ' + bodyAsString);
-
     const bodyAsObject = JSON.parse(bodyAsString);
 
-    email = bodyAsObject.email;
-    console.log('Email: ' + JSON.stringify(email));
+    var email = bodyAsObject.email;
 
-    /*var mailOptions = {
+    var mailOptions = {
         from: '"Spooky SF 👻" <otptesting82@gmail.com>',
         to: email,
         subject: "OTP Verification",
@@ -54,10 +49,10 @@ app.post('/send', function (req, res) {
         if (error) {
             return console.log(error);
         }
-        console.log('Message sent: %s', info.messageId);
+        //console.log('Message sent: %s', info.messageId);
 
-        res.render('otp');
-    });*/
+        //res.render('otp');
+    });
 });
 
 app.post('/defaultSend', function (req, res) {
