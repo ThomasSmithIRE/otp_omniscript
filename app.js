@@ -4,11 +4,12 @@ const nodemailer = require("nodemailer");
 var app = express();
 const exphbs = require('express-handlebars');
 
-//View Engine
 app.engine('handlebars', exphbs({ extname: "hbs", defaultLayout: false, layoutsDir: "views/ " }));
 app.set('view engine', 'handlebars');
 
-// create reusable transporter object using the default SMTP transport
+app.use(bodyParser.urlencoded({extended: true})) 
+app.use(bodyParser.json()) 
+
 let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -25,16 +26,6 @@ var email;
 var otp = Math.random();
 otp = otp * 1000000;
 otp = parseInt(otp);
-
-/*
-let info = await transporter.sendMail({
-    from: '"Spooky SF 👻" <otptesting82@gmail.com>', // sender address
-    to: "engineertsmith@gmail.com", // list of receivers
-    subject: "OTP Verification",
-    html: "<h3>OTP for verification is </h3>" + "<h1 style='font-weight:bold;'>" + otp + "</h1>"
-});
-
-console.log("Message sent: %s", info.messageId);*/
 
 app.get('/', function (req, res) {
     res.render('contact');
@@ -61,8 +52,6 @@ app.post('/send', function (req, res) {
 });
 
 app.post('/defaultSend', function (req, res) {
-    //email = req.body.email;
-
     var mailOptions = {
         from: '"Spooky SF 👻" <otptesting82@gmail.com>',
         to: "engineertsmith@gmail.com", //to: req.body.email,
@@ -90,7 +79,6 @@ app.post('/verify', function (req, res) {
     }*/
 });
 
-//defining port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`app is live at ${PORT}`);
