@@ -56,13 +56,17 @@ app.post('/send', function (req, res) {
 
 app.post('/verify', function (req, res) {
     console.log('Verification Req: ' + JSON.stringify(req.body));
-    res.send("Verification Complete.");
-    /*if (req.body.otp == otp) {
+    console.log('OTP Sent: ' + otp);
+    // VIP HTTP request requires tidying up.
+    // TODO - function
+    var bodyAsString = JSON.stringify(req.body).replace('":""}', '').replace('{"', '').replace(/\\/g, '');
+    const bodyAsObject = JSON.parse(bodyAsString);
+
+    if (bodyAsObject.otp == otp) {
         res.send("Verification Complete");
+    } else {
+        res.send("OTP is incorrect.");
     }
-    else {
-        res.render('otp', { msg: 'OTP is incorrect' });
-    }*/
 });
 
 const PORT = process.env.PORT || 3000;
