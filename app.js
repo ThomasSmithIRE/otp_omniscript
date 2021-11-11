@@ -1,7 +1,7 @@
 "use strict";
 const express = require('express');
 const nodemailer = require("nodemailer");
-const app = express();
+var app = express();
 const exphbs = require('express-handlebars');
 
 //View Engine
