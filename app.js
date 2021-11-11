@@ -38,7 +38,7 @@ app.post('/send', function (req, res) {
     var body = req.body.toString();
     body = body.replace('":""}', '');
     body = body.replace('{"', '');
-    console.log('Body: ' + JSON.stringify(body));
+    console.log('Body: ' + body.toString());
 
     email = body.email;
     console.log('Email: ' + JSON.stringify(email));
