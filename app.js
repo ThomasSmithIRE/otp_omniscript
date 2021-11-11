@@ -34,7 +34,7 @@ app.get('/', function (req, res) {
 
 app.post('/send', function (req, res) {
     email = req.body.email;
-    console.log('Req: ' + req);
+    console.log('Req: ' + JSON.stringify(req.body));
 
     var mailOptions = {
         from: '"Spooky SF 👻" <otptesting82@gmail.com>',
