@@ -55,7 +55,7 @@ app.post('/send', function (req, res) {
 });
 
 app.post('/verify', function (req, res) {
-    console.log('Verification Req: ' + JSON.stringify(req));
+    console.log('Verification Req: ' + JSON.stringify(req.body));
     res.send("Verification Complete.");
     /*if (req.body.otp == otp) {
         res.send("Verification Complete");
