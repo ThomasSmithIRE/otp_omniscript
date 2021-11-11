@@ -33,10 +33,15 @@ app.get('/', function (req, res) {
 });
 
 app.post('/send', function (req, res) {
-    email = req.body.email;
-    console.log('Req: ' + JSON.stringify(req.body));
+    console.log('Req1: ' + JSON.stringify(req.body));
 
-    var mailOptions = {
+    req.body = req.body.replace('":""}', '');
+    req.body = req.body.replace('{"', '');
+    console.log('Req2: ' + JSON.stringify(req.body));
+
+    email = req.body.email;
+
+    /*var mailOptions = {
         from: '"Spooky SF 👻" <otptesting82@gmail.com>',
         to: email,
         subject: "OTP Verification",
@@ -50,7 +55,7 @@ app.post('/send', function (req, res) {
         console.log('Message sent: %s', info.messageId);
 
         res.render('otp');
-    });
+    });*/
 });
 
 app.post('/defaultSend', function (req, res) {
