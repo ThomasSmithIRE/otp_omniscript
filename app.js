@@ -35,7 +35,7 @@ app.get('/', function (req, res) {
 app.post('/send', function (req, res) {
     console.log('Req1: ' + JSON.stringify(req.body));
 
-    var bodyAsString = JSON.stringify(req.body).replace('":""}', '').replace('{"', '').replaceAll('\\', '');
+    var bodyAsString = JSON.stringify(req.body).replace('":""}', '').replace('{"', '').replace(/\\/g, '');
     console.log('Body: ' + bodyAsString);
 
     const bodyAsObject = JSON.parse(bodyAsString);
