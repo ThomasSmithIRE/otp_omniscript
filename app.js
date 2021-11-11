@@ -2,6 +2,7 @@
 const express = require('express');
 const nodemailer = require("nodemailer");
 var app = express();
+var bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 
 app.engine('handlebars', exphbs({ extname: "hbs", defaultLayout: false, layoutsDir: "views/ " }));
