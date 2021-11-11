@@ -61,12 +61,12 @@ app.post('/send', function (req, res) {
 });
 
 app.post('/verify', function (req, res) {
-    res.send("You has been successfully registered");
+    res.send("Verification Complete.");
     /*if (req.body.otp == otp) {
-        res.send("You has been successfully registered");
+        res.send("Verification Complete");
     }
     else {
-        res.render('otp', { msg: 'otp is incorrect' });
+        res.render('otp', { msg: 'OTP is incorrect' });
     }*/
 });
 
