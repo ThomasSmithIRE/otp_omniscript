@@ -1,10 +1,10 @@
 # OTP by Email for Vlocity OmnniScript
-> Simple OTP by Email for embedding into OmniScripts.
+Simple OTP by Email for embedding into OmniScripts.
 
 ## Overview
 This is a node.js app generating a one time passcode and sending by Email using nodemailer. The intent for this app is to be used in a Vlocity OmniScript for user acknowledgement of document reviews. Current support for app runtime is local and Heroku only.
 
-Node version is specified but you may change from the [package.json][1]. Build artifacts are ignored by version control using [.gitignore][2].
+Node version is specified but you may change from the [package.json][1]. Build artifacts are ignored by version control using [.gitignore][2]. OmniStudio tools are available in the [omnistudio][3] folder.
 
 ## Prerequisites
 We assume that you have:
@@ -66,7 +66,8 @@ See you there and thanks for helping to improve OTP by Email for everyone!
 
 [1]: https://github.com/ThomasSmithIRE/otp_omniscript/blob/main/package.json
 [2]: https://github.com/ThomasSmithIRE/otp_omniscript/blob/main/.gitignore
-[3]: https://nodejs.org/en/
-[4]: https://signup.heroku.com/dc
-[5]: https://devcenter.heroku.com/articles/heroku-cli
-[6]: https://github.com/ThomasSmithIRE/otp_omniscript/issues/new
+[3]: https://github.com/ThomasSmithIRE/otp_omniscript/tree/main/omnistudio
+[4]: https://nodejs.org/en/
+[5]: https://signup.heroku.com/dc
+[6]: https://devcenter.heroku.com/articles/heroku-cli
+[7]: https://github.com/ThomasSmithIRE/otp_omniscript/issues/new
