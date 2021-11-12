@@ -29,7 +29,7 @@ app.post('/send', function (req, res) {
     otp = otp * 1000000;
     otp = parseInt(otp);
 
-    const bodyAsObject = cleanRequestToObject(req.body);
+    const bodyAsObject = cleanRequestBodyToObject(req.body);
 
     var email = bodyAsObject.email;
 
@@ -49,7 +49,7 @@ app.post('/send', function (req, res) {
 });
 
 app.post('/verify', function (req, res) {
-    const bodyAsObject = cleanRequestToObject(req.body);
+    const bodyAsObject = cleanRequestBodyToObject(req.body);
 
     if (bodyAsObject.otp == otp) {
         res.send("Verification Complete");
@@ -58,7 +58,7 @@ app.post('/verify', function (req, res) {
     }
 });
 
-function cleanRequestToObject(body) {
+function cleanRequestBodyToObject(body) {
     // HTTP request requires tidying up.
     var bodyAsString = JSON.stringify(body).replace('":""}', '').replace('{"', '').replace(/\\/g, '');
     return JSON.parse(bodyAsString);
