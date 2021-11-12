@@ -37,9 +37,7 @@ app.post('/send', function (req, res) {
     otp = otp * 1000000;
     otp = parseInt(otp);
 
-    // VIP HTTP request requires tidying up.
-    var bodyAsString = JSON.stringify(req.body).replace('":""}', '').replace('{"', '').replace(/\\/g, '');
-    const bodyAsObject = JSON.parse(bodyAsString);
+    const bodyAsObject = cleanRequestToObject(req.body);
 
     var email = bodyAsObject.email;
 
