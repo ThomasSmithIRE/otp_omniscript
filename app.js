@@ -1,3 +1,5 @@
+// Does not support parallel calls
+
 "use strict";
 const express = require('express');
 const nodemailer = require("nodemailer");
@@ -12,14 +14,14 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json()) 
 
 let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
+    host: process.env.HOST,
+    port: process.env.PORT,
     secure: true,
-    service : 'Gmail',
+    service : process.env.SERVICE,
 
     auth: {
-        user: 'otptesting82@gmail.com',
-        pass: '3Bnt6rdYZ4qI',
+        user: process.env.SOURCE_USERNAME,
+        pass: process.env.SOURCE_PASSWORD,
     }
 });
 
@@ -30,7 +32,6 @@ app.get('/', function (req, res) {
 });
 
 app.post('/send', function (req, res) {
-    // Does not support parallel calls
     // TODO - database
     otp = Math.random();
     otp = otp * 1000000;
@@ -43,7 +44,7 @@ app.post('/send', function (req, res) {
     var email = bodyAsObject.email;
 
     var mailOptions = {
-        from: '"OTP Verifier" <otptesting82@gmail.com>',
+        from: '"OTP Verifier" <' + process.env.SOURCE_USERNAME + '>',
         to: email,
         subject: "OTP Verification",
         html: "<h3>OTP for verification is </h3>" + "<h1 style='font-weight:bold;'>" + otp + "</h1>"
@@ -51,19 +52,14 @@ app.post('/send', function (req, res) {
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            res.send("Error: " + error);
+            res.send("ERROR: " + error);
         }
         res.send("SUCCESS");
     });
 });
 
 app.post('/verify', function (req, res) {
-    console.log('Verification Req: ' + JSON.stringify(req.body));
-    console.log('OTP Sent: ' + otp);
-    // VIP HTTP request requires tidying up.
-    // TODO - function
-    var bodyAsString = JSON.stringify(req.body).replace('":""}', '').replace('{"', '').replace(/\\/g, '');
-    const bodyAsObject = JSON.parse(bodyAsString);
+    const bodyAsObject = cleanRequestToObject(req.body);
 
     if (bodyAsObject.otp == otp) {
         res.send("Verification Complete");
@@ -71,6 +67,12 @@ app.post('/verify', function (req, res) {
         res.send("OTP is incorrect.");
     }
 });
+
+function cleanRequestToObject(body) {
+    // HTTP request requires tidying up.
+    var bodyAsString = JSON.stringify(body).replace('":""}', '').replace('{"', '').replace(/\\/g, '');
+    return JSON.parse(bodyAsString);
+}
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
