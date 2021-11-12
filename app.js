@@ -67,10 +67,8 @@ app.post('/verify', function (req, res) {
 
     if (bodyAsObject.otp == otp) {
         res.send("Verification Complete");
-        res.sendStatus(200);
     } else {
         res.send("OTP is incorrect.");
-        res.sendStatus(406);
     }
 });
 
