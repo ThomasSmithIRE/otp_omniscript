@@ -5,10 +5,6 @@ const express = require('express');
 const nodemailer = require("nodemailer");
 var app = express();
 var bodyParser = require('body-parser');
-const exphbs = require('express-handlebars');
-
-app.engine('handlebars', exphbs({ extname: "hbs", defaultLayout: false, layoutsDir: "views/ " }));
-app.set('view engine', 'handlebars');
 
 app.use(bodyParser.urlencoded({extended: true})) 
 app.use(bodyParser.json()) 
@@ -26,10 +22,6 @@ let transporter = nodemailer.createTransport({
 });
 
 var otp;
-
-app.get('/', function (req, res) {
-    res.render('contact');
-});
 
 app.post('/send', function (req, res) {
     // TODO - database
