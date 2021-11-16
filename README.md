@@ -9,9 +9,9 @@ Node version is specified but you may change from the [package.json][1]. Build a
 ## Prerequisites
 We assume that you have:
 
-1. [Node.js][3] and npm installed.
-1. a [free Heroku account][4].
-1. the [Heroku CLI][5].
+1. [Node.js][4] and npm installed.
+1. a [free Heroku account][5].
+1. the [Heroku CLI][6].
 
 ## Running OTP by Email
 
@@ -58,7 +58,7 @@ heroku open
 ### Issues and questions
 Found a bug or have a question about this project? We'd love to hear from you!
 
-1. Browse to [ThomasSmithIRE/otp_omniscript/issues][6]
+1. Browse to [ThomasSmithIRE/otp_omniscript/issues][7]
 1. Create a new issue
 1. Select the `[x] examples` category
 
