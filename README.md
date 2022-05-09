@@ -1,4 +1,4 @@
-# OTP by Email for Vlocity OmnniScript
+# OTP by Email for Vlocity OmniScript
 Simple OTP by Email for embedding into OmniScripts.
 
 ## Overview
