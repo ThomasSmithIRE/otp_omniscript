@@ -12,6 +12,7 @@ We assume that you have:
 1. [Node.js][4] and npm installed.
 1. a [free Heroku account][5].
 1. the [Heroku CLI][6].
+1. Add https://otp-by-email.herokuapp.com to the Salesforce Remote Site URLs.
 
 ## Running OTP by Email
 
